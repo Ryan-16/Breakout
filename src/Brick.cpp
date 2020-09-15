@@ -1,5 +1,4 @@
 #include "Brick.h"
-#include <string>
 
 Brick::Brick(double x, double y, double width, double height, int score)
 {

@@ -25,7 +25,8 @@ int main() {
 	std::cout << brick.get_x() << "\n";
 	std::cout << brick.get_y() << "\n";
 	std::cout << brick.get_score() << "\n";
-	
+	std::cout << brick.get_colour() << "\n";
+
 	return 0;
 }
 

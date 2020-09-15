@@ -1,12 +1,14 @@
 #include "Brick.h"
+#include <string>
 
-Brick::Brick(double x, double y, double width, double height, int health)
+Brick::Brick(double x, double y, double width, double height, int score)
 {
     set_x(x);
     set_y(y);
 	set_width(width);
 	set_height(height);
-	set_health(health);
+	set_score(score);
+	set_colour();
 }
 
 void Brick::set_x(double a) {
@@ -25,8 +27,12 @@ void Brick::set_height(double a) {
     height = a;
 }
 
-void Brick::set_health(int a) {
-	health = a;
+void Brick::set_score(int a) {
+	score = a;
+}
+
+void Brick::set_colour() {
+	colour = "#ffffff";
 }
 
 double Brick::get_x() { 
@@ -45,6 +51,10 @@ double Brick::get_height() {
 	return height; 
 }
 
-int Brick::get_health() {
-	return health;
+int Brick::get_score() {
+	return score;
+}
+
+std::string Brick::get_colour() {
+	return colour;
 }

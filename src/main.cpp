@@ -1,0 +1,28 @@
+#include <stdlib.h>
+#include <iostream>
+#include "Ball.h"
+#include "Brick.h"
+
+// initialise globals
+
+// function declarations
+
+int main() {
+
+	Ball ball(5, 3, 1);
+
+	std::cout << "Ball Test \n";
+	std::cout << ball.get_x() << "\n";
+	std::cout << ball.get_y() << "\n";
+	std::cout << ball.get_speed() << "\n";
+    
+	Brick brick(5, 10, 10, 2, 5);
+
+	std::cout << "Brick Test \n";
+	std::cout << brick.get_x() << "\n";
+	std::cout << brick.get_y() << "\n";
+	std::cout << brick.get_health() << "\n";
+	
+	return 0;
+}
+

@@ -9,11 +9,12 @@
 
 // initialise globals
 char wall_texture = '*';
+char paddle_texture = '-';
 int height = 50;
 int width = 60;  // width wider as less there's less horizontal spacing
 bool quit = false;
 
-Paddle paddle();
+Paddle paddle((width / 2) - 4, height - 2, 8);
 
 // function declarations
 void setup();
@@ -57,8 +58,14 @@ void draw()
 		mvaddch(i, width - 1, wall_texture);
 	}
 
+	// player details
 	mvprintw(1, width / 2 / 2, "Score: %i", 0);
 	mvprintw(1, (width / 2 / 2) * 2, "Lives left: %i", 3);
+
+	// draw paddle
+	for(int i = paddle.get_x(); i < paddle.get_x() + paddle.get_width(); i++) {
+		mvaddch(paddle.get_y(), i, paddle_texture);
+	}
 
 	refresh();
 }

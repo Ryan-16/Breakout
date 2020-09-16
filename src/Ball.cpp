@@ -1,7 +1,6 @@
 #include "Ball.h"
 
-Ball::Ball(double x, double y, int speed)
-{
+Ball::Ball(double x, double y, int speed) {
     set_x(x);
     set_y(y);
     set_speed(speed);

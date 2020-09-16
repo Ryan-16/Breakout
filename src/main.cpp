@@ -4,6 +4,7 @@
 #include "Ball.h"
 #include "Brick.h"
 #include "Paddle.h"
+#include "Player.h"
 
 // initialise globals
 
@@ -36,6 +37,14 @@ int main() {
 	std::cout << paddle.get_y() << "\n";
 	std::cout << paddle.get_width() << "\n";
 	std::cout << paddle.get_height() << "\n";
+
+	// Player test
+	Player player;
+	
+	std::cout << "Player Test \n";
+	std::cout << player.get_score() << "\n";
+	std::cout << player.get_hits() << "\n";
+	std::cout << player.get_lives() << "\n";
 
 	return 0;
 }

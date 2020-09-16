@@ -8,29 +8,50 @@
 #include "Player.h"
 
 // initialise globals
-char wall_texture = '=';
-int height = 80;
-int width = 24;
+char wall_texture = '*';
+int height = 50;
+int width = 60;  // width wider as less there's less horizontal spacing
+bool quit = false;
 
 // function declarations
+void setup();
+void draw();
 
 int main() 
 {
-	
+	setup();
+
+	while(!quit) {
+		draw();
+	}
+			
+	return 0;
+}
+
+void setup()
+{
+	// init ncurses
 	initscr();
 	cbreak();
 	noecho();
 	curs_set(0);
 	keypad(stdscr, TRUE);
-	timeout(50);
-
-	erase();
-	refresh();
-
-	for(int i = 0; i < width; i++) {
-
-	mvaddch(0,1, wall_texture);
-
-	return 0;
 }
 
+void draw()
+{
+	// draw frame
+	erase();
+
+	for(int i = 0; i < width; i++) {
+		mvaddch(0, i, wall_texture);
+		mvaddch(height - 1, i, wall_texture);
+	}
+
+	for(int i = 1; i < height - 1; i++) {
+		mvaddch(i, 0, wall_texture);
+		mvaddch(i, width - 1, wall_texture);
+	}
+
+	refresh();
+}

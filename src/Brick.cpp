@@ -31,7 +31,20 @@ void Brick::set_score(int a) {
 }
 
 void Brick::set_colour() {
-	colour = "#ffffff";
+	switch (score) {
+		case 1:
+			colour = "Yellow";
+			break;
+		case 3:
+			colour = "Green";
+			break;
+		case 5:
+			colour = "Orange";
+			break;
+		case 7:
+			colour = "Red";
+			break;
+	}
 }
 
 double Brick::get_x() { 

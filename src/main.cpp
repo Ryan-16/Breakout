@@ -9,9 +9,13 @@
 
 // initialise globals
 char wall_texture = '=';
+int height = 80;
+int width = 24;
+
 // function declarations
 
-int main() {
+int main() 
+{
 	
 	initscr();
 	cbreak();
@@ -22,6 +26,9 @@ int main() {
 
 	erase();
 	refresh();
+
+	for(int i = 0; i < width; i++) {
+
 	mvaddch(0,1, wall_texture);
 
 	return 0;

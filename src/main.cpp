@@ -1,51 +1,29 @@
-#include <stdlib.h>
 #include <iostream>
 #include <string>
+#include <stdlib.h>
+#include <ncurses.h>
 #include "Ball.h"
 #include "Brick.h"
 #include "Paddle.h"
 #include "Player.h"
 
 // initialise globals
-
+char wall_texture = '=';
 // function declarations
 
 int main() {
-
-	// Ball test
-	Ball ball(5, 3, 1);
-
-	std::cout << "Ball Test \n";
-	std::cout << ball.get_x() << "\n";
-	std::cout << ball.get_y() << "\n";
-	std::cout << ball.get_speed() << "\n";
-    
-	// Brick test
-	Brick brick(5, 10, 10, 2, 5);
-
-	std::cout << "Brick Test \n";
-	std::cout << brick.get_x() << "\n";
-	std::cout << brick.get_y() << "\n";
-	std::cout << brick.get_score() << "\n";
-	std::cout << brick.get_colour() << "\n";
 	
-	// Paddle test
-	Paddle paddle(5, 10, 10);
-
-	std::cout << "Paddle Test \n";
-	std::cout << paddle.get_x() << "\n";
-	std::cout << paddle.get_y() << "\n";
-	std::cout << paddle.get_width() << "\n";
-	std::cout << paddle.get_height() << "\n";
-
-	// Player test
-	Player player;
-	
-	std::cout << "Player Test \n";
-	std::cout << player.get_score() << "\n";
-	std::cout << player.get_hits() << "\n";
-	std::cout << player.get_lives() << "\n";
-
+	initscr();
+	cbreak();
+	noecho();
+	curs_set(0);
+	keypad(stdscr, TRUE);
+	timeout(50);
+	while(1){
+	erase();
+	refresh();
+	mvaddch(0,1, wall_texture);
+}
 	return 0;
 }
 

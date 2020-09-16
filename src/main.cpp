@@ -3,6 +3,7 @@
 #include <string>
 #include "Ball.h"
 #include "Brick.h"
+#include "Paddle.h"
 
 // initialise globals
 
@@ -26,6 +27,15 @@ int main() {
 	std::cout << brick.get_y() << "\n";
 	std::cout << brick.get_score() << "\n";
 	std::cout << brick.get_colour() << "\n";
+	
+	// Paddle test
+	Paddle paddle(5, 10, 10);
+
+	std::cout << "Paddle Test \n";
+	std::cout << paddle.get_x() << "\n";
+	std::cout << paddle.get_y() << "\n";
+	std::cout << paddle.get_width() << "\n";
+	std::cout << paddle.get_height() << "\n";
 
 	return 0;
 }

@@ -1,7 +1,6 @@
 #include "Brick.h"
 
-Brick::Brick(double x, double y, double width, double height, int score)
-{
+Brick::Brick(double x, double y, double width, double height, int score) {
     set_x(x);
     set_y(y);
 	set_width(width);

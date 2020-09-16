@@ -19,11 +19,11 @@ int main() {
 	curs_set(0);
 	keypad(stdscr, TRUE);
 	timeout(50);
-	while(1){
+
 	erase();
 	refresh();
 	mvaddch(0,1, wall_texture);
-}
+
 	return 0;
 }
 

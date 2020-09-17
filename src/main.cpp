@@ -63,28 +63,28 @@ void setup()
 			wall[i][j].set_alive(true);
 			switch (i) {
 				case 0:
-					wall[i][j].set_score(1);
+					wall[i][j].set_score(7);
 					break;
 				case 1:
-					wall[i][j].set_score(1);
+					wall[i][j].set_score(7);
 					break;
 				case 2:
-					wall[i][j].set_score(3);
+					wall[i][j].set_score(5);
 					break;
 				case 3:
-					wall[i][j].set_score(3);
+					wall[i][j].set_score(5);
 					break;
 				case 4:
-					wall[i][j].set_score(5);
+					wall[i][j].set_score(3);
 					break;
 				case 5:
-					wall[i][j].set_score(5);
+					wall[i][j].set_score(3);
 					break;
 				case 6:
-					wall[i][j].set_score(7);
+					wall[i][j].set_score(1);
 					break;
 				case 7:
-					wall[i][j].set_score(7);
+					wall[i][j].set_score(1);
 					break;
 			}
 		}
@@ -125,6 +125,7 @@ void input()
 void logic()
 {
 	/* Ball directions
+	0 - stationary
 	1 - down
 	2 - up
 	3 - up left
@@ -151,8 +152,18 @@ void logic()
 	// brick hit
 	if(ball.get_y() > (height / wall_shift) && ball.get_y() < layers + (height / wall_shift)) {
 		if (wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].get_alive()) {
+			wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].set_alive(false);
+			player.set_score(player.get_score() + wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].get_score());
 			dir = 1;
 		}
+	}
+
+	// miss -> reset ball
+	if(ball.get_y() > paddle.get_y()) { 
+		player.set_lives(player.get_lives() - 1);
+		ball.set_x(width / 2);
+		ball.set_y(height - 5);
+		dir = 0;
 	}
 
 	// left wall
@@ -165,6 +176,8 @@ void logic()
 
 	// move ball
 	switch(dir) {
+		case 0:
+			break;
 		case 1:
 			ball.set_y(ball.get_y() + ball.get_speed());
 			break;
@@ -207,6 +220,12 @@ void draw()
 		mvaddch(i, 0, wall_texture);
 		mvaddch(i, width - 1, wall_texture);
 	}
+	
+	// instructions
+	mvprintw(height + 1, 1, "<- left");
+	mvprintw(height + 2, 1, "-> right");
+	mvprintw(height + 3, 1, "SPACE BAR serve");
+	mvprintw(height + 4, 1, "q quit");
 
 	// player details
 	mvprintw(1, width / 2 / 2, "Score: %i", player.get_score());

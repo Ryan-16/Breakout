@@ -22,7 +22,7 @@ int dir;
 Brick wall[layers][width];
 
 Player player;
-Paddle paddle((width / 2) - 4, height - 2, 8, 2);
+Paddle paddle((width / 2) - 4, height - 2, 8, 4);
 Ball ball(width / 2, height - 5, 1);
 
 // function declarations
@@ -61,6 +61,7 @@ void setup()
 			wall[i][j].set_x(j);
 			wall[i][j].set_y(i + (height / wall_shift));
 			wall[i][j].set_alive(true);
+			wall[i][j].set_width(5);
 			switch (i) {
 				case 0:
 					wall[i][j].set_score(7);
@@ -89,11 +90,6 @@ void setup()
 			}
 		}
 	}
-
-	// set ball in motion
-
-
-
 
 }
 
@@ -147,13 +143,23 @@ void logic()
 					dir = 3;
 				}
 				player.set_hits(player.get_hits() + 1);
+//				if(player.get_hits() == 4 || player.get_hits() == 12) {
+//					ball.set_speed(ball.get_speed() + 1);
+//				}
 			}
 		}
 
 		// brick hit
 		if(ball.get_y() > (height / wall_shift) && ball.get_y() < layers + (height / wall_shift)) {
 			if (wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].get_alive()) {
-				wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].set_alive(false);
+				for(
+					int i = (int) ball.get_x() - (wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].get_width() / 2);
+					i < (int) ball.get_x() + (wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].get_width() / 2);
+					i++) {
+					if(i < width && i > 0) {
+						wall[(int) ball.get_y() - (height / wall_shift)][i].set_alive(false);
+					}
+				}
 				player.set_score(player.get_score() + wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].get_score());
 				dir = 1;
 			}
@@ -175,6 +181,11 @@ void logic()
 		// right wall	
 		if(ball.get_x() == width - 1 && dir == 4) { dir = 3; }
 		if(ball.get_x() == width - 1 && dir == 6) { dir = 5; }
+
+		// top wall
+		if(ball.get_y() == 0 && dir == 2) { dir = 1; }
+		if(ball.get_y() == 0 && dir == 3) { dir = 5; }
+		if(ball.get_y() == 0 && dir == 4) { dir = 6; }
 
 		// move ball
 		switch(dir) {

@@ -16,21 +16,27 @@ const int height = 50;
 const int width = 60;  // width wider as less there's less horizontal spacing
 const int layers = 8;
 bool quit = false;
+int ch;
 Brick wall[layers][width];
 
 Player player;
-Paddle paddle((width / 2) - 4, height - 2, 8);
+Paddle paddle((width / 2) - 4, height - 2, 8, 2);
 Ball ball(width / 2, height - 5, 1);
 
 // function declarations
 void setup();
+void input();
+//void logic();
 void draw();
 
 int main() 
 {
 	setup();
-
+	draw();
+	
 	while(!quit) {
+		input();
+		//logic();
 		draw();
 	}
 			
@@ -82,6 +88,26 @@ void setup()
 	}
 
 
+}
+
+void input()
+{
+	ch = getch();
+	switch(ch) {
+		case KEY_RIGHT:
+			if(paddle.get_x() + (paddle.get_width()) < width) {
+				paddle.set_x(paddle.get_x() + paddle.get_speed());
+			}
+			break;
+		case KEY_LEFT:
+			if(paddle.get_x() > 0) {
+				paddle.set_x(paddle.get_x() - paddle.get_speed());
+			}
+			break;
+		case 'q':
+			quit = true;
+			break;
+	}
 }
 
 void draw()

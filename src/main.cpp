@@ -133,73 +133,76 @@ void logic()
 	5 - down left
 	6 - down right
 	*/
-
-	// paddle hit
-	if(ball.get_y() == paddle.get_y() || ball.get_y() == paddle.get_y()) {
-		if(ball.get_x() >= paddle.get_x() && ball.get_x() <= paddle.get_x() + paddle.get_width()) {
-			if(ball.get_x() > paddle.get_x() + (paddle.get_width() / 2)) {
-				dir = 4;
-			}
-			else if (ball.get_x() == paddle.get_x() + (paddle.get_width() / 2)) {
-				dir = 2;
-			}
-			else {
-				dir = 3;
+	if(player.get_lives() > 0) {
+		// paddle hit
+		if(ball.get_y() == paddle.get_y() || ball.get_y() == paddle.get_y()) {
+			if(ball.get_x() >= paddle.get_x() && ball.get_x() <= paddle.get_x() + paddle.get_width()) {
+				if(ball.get_x() > paddle.get_x() + (paddle.get_width() / 2)) {
+					dir = 4;
+				}
+				else if (ball.get_x() == paddle.get_x() + (paddle.get_width() / 2)) {
+					dir = 2;
+				}
+				else {
+					dir = 3;
+				}
+				player.set_hits(player.get_hits() + 1);
 			}
 		}
-	}
 
-	// brick hit
-	if(ball.get_y() > (height / wall_shift) && ball.get_y() < layers + (height / wall_shift)) {
-		if (wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].get_alive()) {
-			wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].set_alive(false);
-			player.set_score(player.get_score() + wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].get_score());
-			dir = 1;
+		// brick hit
+		if(ball.get_y() > (height / wall_shift) && ball.get_y() < layers + (height / wall_shift)) {
+			if (wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].get_alive()) {
+				wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].set_alive(false);
+				player.set_score(player.get_score() + wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].get_score());
+				dir = 1;
+			}
 		}
-	}
 
-	// miss -> reset ball
-	if(ball.get_y() > paddle.get_y()) { 
-		player.set_lives(player.get_lives() - 1);
-		ball.set_x(width / 2);
-		ball.set_y(height - 5);
-		dir = 0;
-	}
+		// miss -> reset ball and paddle
+		if(ball.get_y() > paddle.get_y()) { 
+			player.set_lives(player.get_lives() - 1);
+			ball.set_x(width / 2);
+			ball.set_y(height - 5);
+			paddle.set_x(width / 2 - 4);
+			dir = 0;
+		}
 
-	// left wall
-	if(ball.get_x() == 0 && dir == 3) { dir = 4; }
-	if(ball.get_x() == 0 && dir == 5) { dir = 6; }
-	
-	// right wall	
-	if(ball.get_x() == width - 1 && dir == 4) { dir = 3; }
-	if(ball.get_x() == width - 1 && dir == 6) { dir = 5; }
+		// left wall
+		if(ball.get_x() == 0 && dir == 3) { dir = 4; }
+		if(ball.get_x() == 0 && dir == 5) { dir = 6; }
+		
+		// right wall	
+		if(ball.get_x() == width - 1 && dir == 4) { dir = 3; }
+		if(ball.get_x() == width - 1 && dir == 6) { dir = 5; }
 
-	// move ball
-	switch(dir) {
-		case 0:
-			break;
-		case 1:
-			ball.set_y(ball.get_y() + ball.get_speed());
-			break;
-		case 2:
-			ball.set_y(ball.get_y() - ball.get_speed());
-			break;
-		case 3:
-			ball.set_y(ball.get_y() - ball.get_speed());
-			ball.set_x(ball.get_x() - ball.get_speed());
-			break;
-		case 4:
-			ball.set_y(ball.get_y() - ball.get_speed());
-            ball.set_x(ball.get_x() + ball.get_speed());
-			break;
-		case 5:
-			ball.set_y(ball.get_y() + ball.get_speed());
-            ball.set_x(ball.get_x() - ball.get_speed());
-			break;
-		case 6:
-			ball.set_y(ball.get_y() + ball.get_speed());
-            ball.set_x(ball.get_x() + ball.get_speed());
-			break;
+		// move ball
+		switch(dir) {
+			case 0:
+				break;
+			case 1:
+				ball.set_y(ball.get_y() + ball.get_speed());
+				break;
+			case 2:
+				ball.set_y(ball.get_y() - ball.get_speed());
+				break;
+			case 3:
+				ball.set_y(ball.get_y() - ball.get_speed());
+				ball.set_x(ball.get_x() - ball.get_speed());
+				break;
+			case 4:
+				ball.set_y(ball.get_y() - ball.get_speed());
+				ball.set_x(ball.get_x() + ball.get_speed());
+				break;
+			case 5:
+				ball.set_y(ball.get_y() + ball.get_speed());
+				ball.set_x(ball.get_x() - ball.get_speed());
+				break;
+			case 6:
+				ball.set_y(ball.get_y() + ball.get_speed());
+				ball.set_x(ball.get_x() + ball.get_speed());
+				break;
+		}
 	}
 }
 
@@ -249,5 +252,9 @@ void draw()
 		}
 	}
 
+    // game over
+	if(player.get_lives() <= 0) {
+		mvprintw(height / 2, width / 2 - 8, "Game Over!");
+	}
 
 }

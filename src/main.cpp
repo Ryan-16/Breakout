@@ -8,13 +8,19 @@
 #include "Player.h"
 
 // initialise globals
-char wall_texture = '*';
-char paddle_texture = '-';
-int height = 50;
-int width = 60;  // width wider as less there's less horizontal spacing
+const char wall_texture = '*';
+const char paddle_texture = '-';
+const char ball_texture = 'o';
+const char brick_texture = '=';
+const int height = 50;
+const int width = 60;  // width wider as less there's less horizontal spacing
+const int layers = 8;
 bool quit = false;
+Brick wall[layers][width];
 
+Player player;
 Paddle paddle((width / 2) - 4, height - 2, 8);
+Ball ball(width / 2, height - 5, 1);
 
 // function declarations
 void setup();
@@ -39,6 +45,43 @@ void setup()
 	noecho();
 	curs_set(0);
 	keypad(stdscr, TRUE);
+
+	// populate wall
+	for(int i = 0; i < layers; i++) {
+		for(int j = 1; j < width - 1; j++) {
+			wall[i][j].set_x(j);
+			wall[i][j].set_y(i + (height/10));
+			wall[i][j].set_alive(true);
+			switch (i) {
+				case 0:
+					wall[i][j].set_score(1);
+					break;
+				case 1:
+					wall[i][j].set_score(1);
+					break;
+				case 2:
+					wall[i][j].set_score(3);
+					break;
+				case 3:
+					wall[i][j].set_score(3);
+					break;
+				case 4:
+					wall[i][j].set_score(5);
+					break;
+				case 5:
+					wall[i][j].set_score(5);
+					break;
+				case 6:
+					wall[i][j].set_score(7);
+					break;
+				case 7:
+					wall[i][j].set_score(7);
+					break;
+			}
+		}
+	}
+
+
 }
 
 void draw()
@@ -59,12 +102,25 @@ void draw()
 	}
 
 	// player details
-	mvprintw(1, width / 2 / 2, "Score: %i", 0);
-	mvprintw(1, (width / 2 / 2) * 2, "Lives left: %i", 3);
+	mvprintw(1, width / 2 / 2, "Score: %i", player.get_score());
+	mvprintw(1, (width / 2 / 2) * 2, "Lives left: %i", player.get_lives());
 
 	// draw paddle
 	for(int i = paddle.get_x(); i < paddle.get_x() + paddle.get_width(); i++) {
 		mvaddch(paddle.get_y(), i, paddle_texture);
+	}
+
+	// draw ball
+	mvaddch(ball.get_y(), ball.get_x(), ball_texture);
+
+	// draw bricks
+
+	for(int i = 0; i < layers; i++) {
+		for(int j = 0; j < width; j++) {
+			if (wall[i][j].get_alive()) {
+				mvaddch(wall[i][j].get_y(), wall[i][j].get_x(), brick_texture);
+			}
+		}
 	}
 
 	refresh();

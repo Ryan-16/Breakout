@@ -1,13 +1,7 @@
 #include "Brick.h"
 
-Brick::Brick(double x, double y, double width, double height, int score)
+Brick::Brick()
 {
-    set_x(x);
-    set_y(y);
-	set_width(width);
-	set_height(height);
-	set_score(score);
-	set_colour();
 }
 
 void Brick::set_x(double a)
@@ -33,6 +27,7 @@ void Brick::set_height(double a)
 void Brick::set_score(int a)
 {
 	score = a;
+	set_colour();
 }
 
 void Brick::set_colour()
@@ -51,6 +46,11 @@ void Brick::set_colour()
 			colour = "Red";
 			break;
 	}
+}
+
+void Brick::set_alive(bool a)
+{
+	alive = a;
 }
 
 double Brick::get_x() 
@@ -81,4 +81,9 @@ int Brick::get_score()
 std::string Brick::get_colour()
 {
 	return colour;
+}
+
+bool Brick::get_alive()
+{
+	return alive;
 }

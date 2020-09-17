@@ -123,9 +123,26 @@ void input()
 
 void logic()
 {
+	/* Ball directions
+	1 - down
+	2 - up
+	3 - up left
+	4 - up right
+	5 - down left
+	6 - down right
+	*/
+
 	if(ball.get_y() == paddle.get_y() || ball.get_y() == paddle.get_y()) {
 		if(ball.get_x() >= paddle.get_x() && ball.get_x() <= paddle.get_x() + paddle.get_width()) {
-			dir = 2;
+			if(ball.get_x() > paddle.get_x() + (paddle.get_width() / 2)) {
+				dir = 4;
+			}
+			else if (ball.get_x() == paddle.get_x() + (paddle.get_width() / 2)) {
+				dir = 2;
+			}
+			else {
+				dir = 3;
+			}
 		}
 	}
 
@@ -135,6 +152,22 @@ void logic()
 			break;
 		case 2:
 			ball.set_y(ball.get_y() - ball.get_speed());
+			break;
+		case 3:
+			ball.set_y(ball.get_y() - ball.get_speed());
+			ball.set_x(ball.get_x() - ball.get_speed());
+			break;
+		case 4:
+			ball.set_y(ball.get_y() - ball.get_speed());
+            ball.set_x(ball.get_x() + ball.get_speed());
+			break;
+		case 5:
+			ball.set_y(ball.get_y() + ball.get_speed());
+            ball.set_x(ball.get_x() - ball.get_speed());
+			break;
+		case 6:
+			ball.set_y(ball.get_y() + ball.get_speed());
+            ball.set_x(ball.get_x() + ball.get_speed());
 			break;
 	}
 }

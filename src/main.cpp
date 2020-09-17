@@ -15,6 +15,7 @@ const char brick_texture = '=';
 const int height = 50;
 const int width = 60;  // width wider as less there's less horizontal spacing
 const int layers = 8;
+const int wall_shift = 10;
 bool quit = false;
 int ch;
 int dir;
@@ -58,7 +59,7 @@ void setup()
 	for(int i = 0; i < layers; i++) {
 		for(int j = 1; j < width - 1; j++) {
 			wall[i][j].set_x(j);
-			wall[i][j].set_y(i + (height/10));
+			wall[i][j].set_y(i + (height / wall_shift));
 			wall[i][j].set_alive(true);
 			switch (i) {
 				case 0:
@@ -132,6 +133,7 @@ void logic()
 	6 - down right
 	*/
 
+	// paddle hit
 	if(ball.get_y() == paddle.get_y() || ball.get_y() == paddle.get_y()) {
 		if(ball.get_x() >= paddle.get_x() && ball.get_x() <= paddle.get_x() + paddle.get_width()) {
 			if(ball.get_x() > paddle.get_x() + (paddle.get_width() / 2)) {
@@ -146,6 +148,22 @@ void logic()
 		}
 	}
 
+	// brick hit
+	if(ball.get_y() > (height / wall_shift) && ball.get_y() < layers + (height / wall_shift)) {
+		if (wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].get_alive()) {
+			dir = 1;
+		}
+	}
+
+	// left wall
+	if(ball.get_x() == 0 && dir == 3) { dir = 4; }
+	if(ball.get_x() == 0 && dir == 5) { dir = 6; }
+	
+	// right wall	
+	if(ball.get_x() == width - 1 && dir == 4) { dir = 3; }
+	if(ball.get_x() == width - 1 && dir == 6) { dir = 5; }
+
+	// move ball
 	switch(dir) {
 		case 1:
 			ball.set_y(ball.get_y() + ball.get_speed());

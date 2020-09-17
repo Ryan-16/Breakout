@@ -17,6 +17,7 @@ const int width = 60;  // width wider as less there's less horizontal spacing
 const int layers = 8;
 bool quit = false;
 int ch;
+int dir;
 Brick wall[layers][width];
 
 Player player;
@@ -26,20 +27,20 @@ Ball ball(width / 2, height - 5, 1);
 // function declarations
 void setup();
 void input();
-//void logic();
+void logic();
 void draw();
 
 int main() 
 {
 	setup();
-	draw();
 	
 	while(!quit) {
 		input();
-		//logic();
+		logic();
 		draw();
 	}
-			
+
+	endwin();			
 	return 0;
 }
 
@@ -51,6 +52,7 @@ void setup()
 	noecho();
 	curs_set(0);
 	keypad(stdscr, TRUE);
+	timeout(50);
 
 	// populate wall
 	for(int i = 0; i < layers; i++) {
@@ -87,6 +89,10 @@ void setup()
 		}
 	}
 
+	// set ball in motion
+
+
+
 
 }
 
@@ -104,8 +110,31 @@ void input()
 				paddle.set_x(paddle.get_x() - paddle.get_speed());
 			}
 			break;
+		case ' ':
+			dir = 1;
+			break;
 		case 'q':
 			quit = true;
+			break;
+		default:
+			break;
+	}
+}
+
+void logic()
+{
+	if(ball.get_y() == paddle.get_y() || ball.get_y() == paddle.get_y()) {
+		if(ball.get_x() >= paddle.get_x() && ball.get_x() <= paddle.get_x() + paddle.get_width()) {
+			dir = 2;
+		}
+	}
+
+	switch(dir) {
+		case 1:
+			ball.set_y(ball.get_y() + ball.get_speed());
+			break;
+		case 2:
+			ball.set_y(ball.get_y() - ball.get_speed());
 			break;
 	}
 }
@@ -114,6 +143,7 @@ void draw()
 {
 	// draw frame
 	erase();
+	refresh();
 
 	// horizontal walls
 	for(int i = 0; i < width; i++) {
@@ -149,5 +179,5 @@ void draw()
 		}
 	}
 
-	refresh();
+
 }

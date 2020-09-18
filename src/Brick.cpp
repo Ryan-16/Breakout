@@ -2,6 +2,7 @@
 
 Brick::Brick()
 {
+	// empty constrctor so wall array can be constructed of type Brick
 }
 
 void Brick::set_x(double a)

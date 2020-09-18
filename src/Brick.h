@@ -22,7 +22,9 @@ class Brick {
 		std::string get_colour();
 
 	private:
+		// colour infered from score hence private
 		void set_colour();
+		// brick defined as x, y (top left), and a width and height
 		double x, y, width, height;
 		int score;
 		bool alive;

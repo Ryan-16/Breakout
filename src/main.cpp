@@ -14,12 +14,12 @@ const char ball_texture = 'o';
 const char brick_texture = '=';
 const int height = 40;
 const int width = 60;  // width wider as less there's less horizontal spacing
-const int layers = 8;
-const int wall_shift = 10;
+const int layers = 8;  // number of brick layers
+const int wall_shift = 10;  // percentage down screen bricks appear
 bool quit = false;
-int ch;
-int dir;
-Brick wall[layers][width];
+int ch; // key
+int dir; // direction
+Brick wall[layers][width]; //2d array representing wall of bricks
 
 Player player;
 Paddle paddle((width / 2) - 4, height - 2, 8, 3);
@@ -61,6 +61,7 @@ void setup()
 			wall[i][j].set_x(j);
 			wall[i][j].set_y(i + (height / wall_shift));
 			wall[i][j].set_alive(true);
+			// a hit on a brick will kill 8 surrounding bricks
 			wall[i][j].set_width(8);
 			switch (i) {
 				case 0:
@@ -99,15 +100,18 @@ void input()
 	switch(ch) {
 		case KEY_RIGHT:
 			if(paddle.get_x() + (paddle.get_width()) < width - 1) {
+				// if within bounds of wall
 				paddle.set_x(paddle.get_x() + paddle.get_speed());
 			}
 			break;
 		case KEY_LEFT:
 			if(paddle.get_x() > 0) {
+				// if within bounds of wall
 				paddle.set_x(paddle.get_x() - paddle.get_speed());
 			}
 			break;
 		case ' ':
+			// serve
 			dir = 1;
 			break;
 		case 'q':
@@ -133,6 +137,7 @@ void logic()
 		// paddle hit
 		if(ball.get_y() == paddle.get_y() || ball.get_y() == paddle.get_y()) {
 			if(ball.get_x() >= paddle.get_x() && ball.get_x() <= paddle.get_x() + paddle.get_width()) {
+				// determine direction of ball after paddle hit
 				if(ball.get_x() > paddle.get_x() + (paddle.get_width() / 2)) {
 					dir = 4;
 				}
@@ -143,6 +148,7 @@ void logic()
 					dir = 3;
 				}
 				player.set_hits(player.get_hits() + 1);
+				// increase speed of ball periodically
 //				if(player.get_hits() == 4 || player.get_hits() == 12) {
 //					ball.set_speed(ball.get_speed() + 1);
 //				}
@@ -152,6 +158,7 @@ void logic()
 		// brick hit
 		if(ball.get_y() >= (height / wall_shift) && ball.get_y() < layers + (height / wall_shift)) {
 			if (wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].get_alive()) {
+				// destroy surrounding bricks also
 				for(
 					int i = (int) ball.get_x() - (wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].get_width() / 2);
 					i < (int) ball.get_x() + (wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].get_width() / 2);

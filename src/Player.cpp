@@ -2,7 +2,8 @@
 
 Player::Player()
 {
-    set_lives(3);
+	// default 3 lives
+	set_lives(3);
     set_score(0);
     set_hits(0);
 }

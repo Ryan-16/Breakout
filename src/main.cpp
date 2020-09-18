@@ -22,7 +22,7 @@ int dir;
 Brick wall[layers][width];
 
 Player player;
-Paddle paddle((width / 2) - 4, height - 2, 8, 4);
+Paddle paddle((width / 2) - 4, height - 2, 8, 3);
 Ball ball(width / 2, height - 5, 1);
 
 // function declarations
@@ -98,7 +98,7 @@ void input()
 	ch = getch();
 	switch(ch) {
 		case KEY_RIGHT:
-			if(paddle.get_x() + (paddle.get_width()) < width) {
+			if(paddle.get_x() + (paddle.get_width()) < width - 1) {
 				paddle.set_x(paddle.get_x() + paddle.get_speed());
 			}
 			break;

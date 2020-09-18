@@ -12,7 +12,7 @@ const char wall_texture = '*';
 const char paddle_texture = '-';
 const char ball_texture = 'o';
 const char brick_texture = '=';
-const int height = 50;
+const int height = 40;
 const int width = 60;  // width wider as less there's less horizontal spacing
 const int layers = 8;
 const int wall_shift = 10;
@@ -61,7 +61,7 @@ void setup()
 			wall[i][j].set_x(j);
 			wall[i][j].set_y(i + (height / wall_shift));
 			wall[i][j].set_alive(true);
-			wall[i][j].set_width(5);
+			wall[i][j].set_width(8);
 			switch (i) {
 				case 0:
 					wall[i][j].set_score(7);
@@ -150,7 +150,7 @@ void logic()
 		}
 
 		// brick hit
-		if(ball.get_y() > (height / wall_shift) && ball.get_y() < layers + (height / wall_shift)) {
+		if(ball.get_y() >= (height / wall_shift) && ball.get_y() < layers + (height / wall_shift)) {
 			if (wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].get_alive()) {
 				for(
 					int i = (int) ball.get_x() - (wall[(int) ball.get_y() - (height / wall_shift)][(int) ball.get_x()].get_width() / 2);

@@ -13,7 +13,9 @@ class Ball {
 		int get_speed();
 
 	private:
+		// coordinates of ball updated in real time
 		double x, y;
+		// define how fast ball moves
 		int speed;
 };
 

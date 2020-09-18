@@ -4,10 +4,10 @@ Paddle::Paddle(double x, double y, double width, int speed)
 {
     set_x(x);
     set_y(y);
-	// default height 1 to yield flat paddle
-	set_height(1);
+    // default height 1 to yield flat paddle
+    set_height(1);
     set_width(width);
-	set_speed(speed);
+    set_speed(speed);
 }
 
 void Paddle::set_x(double a)

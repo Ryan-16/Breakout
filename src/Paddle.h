@@ -16,8 +16,11 @@ class Paddle {
 		int get_speed();
 
 	private:
+		// height of paddle currently fixed hence private setter
 		void set_height(double a);
+		// paddle defined as x, y (top-left coordinates), a width and height
 		double x, y, height, width;
+		// number of "pixels" moved in either direction per keystroke
 		int speed;
 };
 

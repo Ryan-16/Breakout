@@ -7,3 +7,6 @@ A lighweight adaptation of the classic Atari game, Breakout, which runs directly
 2. `cd Breakout`
 3. `make`
 4. `./breakout`
+
+# Demo
+![Demo of game](https://raw.githubusercontent.com/Ryan-16/Breakout/master/screenshots/breakout.gif)

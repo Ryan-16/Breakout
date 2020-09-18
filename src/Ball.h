@@ -15,7 +15,7 @@ class Ball {
 	private:
 		// coordinates of ball updated in real time
 		double x, y;
-		// define how fast ball moves
+		// define how fast ball moves on screen
 		int speed;
 };
 

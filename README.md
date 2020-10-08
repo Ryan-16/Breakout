@@ -1,5 +1,5 @@
 # Breakout
-A lighweight adaptation of the classic Atari game, Breakout, which runs directly in the terminal. Implemented with OOP in C++ with the ncurses graphics libaray.
+A lightweight adaptation of the classic Atari game, Breakout, which runs directly in the terminal. Implemented with OOP in C++ with the ncurses graphics libaray.
 
 # Usage
 

@@ -1,4 +1,4 @@
-# Breakout
+# breakout
 A lightweight adaptation of the classic Atari game, Breakout, which runs directly in the terminal. Implemented with OOP in C++ with the ncurses graphics library.
 
 # Usage
